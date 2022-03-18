@@ -1,4 +1,4 @@
-package main;
+package core;
 
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;

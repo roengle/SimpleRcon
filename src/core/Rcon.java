@@ -1,6 +1,6 @@
-package main;
+package core;
 
-import ex.AuthenticationException;
+import core.ex.AuthenticationException;
 
 import java.io.*;
 import java.net.Socket;
@@ -203,7 +203,7 @@ public class Rcon {
      */
     private void waitUntilNoData(){
         try {
-            Thread.sleep(500);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package ex;
+package core.ex;
 
 public class AuthenticationException extends Exception{
     public AuthenticationException(String message){

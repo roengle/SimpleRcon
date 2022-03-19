@@ -12,6 +12,8 @@ Uses some of Java's asynchronous libraries for executing (and waiting for respon
 * Auto-reconnect due to timeout from RCON server.
 
 ## Using SimpleRcon
+Download the [latest release](https://github.com/roengle/SimpleRcon/releases/latest) of SimpleRcon.
+
 With the `SimpleRcon.jar` file included in your project's dependencies, you can use SimpleRcon the following way:
 ```java
 class TestClass{

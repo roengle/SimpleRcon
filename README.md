@@ -1,7 +1,7 @@
 # SimpleRcon
 Simple program that implements [Valve's Source RCON protocol](https://developer.valvesoftware.com/wiki/Source_RCON_Protocol).
 Provides a way to fetch responses for commands, as well as read incoming packets sent out by the RCON server,
-(for the game Squad, this is indicated by packet type `1` and requstId `0`.)
+(for the game Squad, this is indicated by packet type `1` and requestId `0`.)
 
 Continuously reads the connect socket's input stream to monitor for any new data. This is done to receive any data
 that is broadcasted by the RCON server.

@@ -47,7 +47,7 @@ public class Rcon {
      * @param port the port the RCON server monitors. By default is 21114
      * @param password a {@link String} of the password
      */
-    public Rcon(String host, Integer port, String password){
+    public Rcon(String host, Integer port, String password) throws AuthenticationException {
         this(host, port, password.getBytes());
     }
 
@@ -58,18 +58,15 @@ public class Rcon {
      * @param port the port the RCON server monitors. By default is 21114
      * @param password a byte array representing the password to logon to the RCON server with.
      */
-    private Rcon(String host, Integer port, byte[] password){
+    private Rcon(String host, Integer port, byte[] password) throws AuthenticationException {
         this.host = host;
         this.port = port;
         this.password = password;
+
+        connect(this.host, this.port, this.password);
         new Thread(() -> {
             try{
-                try{
-                    connect(this.host, this.port, this.password);
-                    authenticated = true;
-                }catch (AuthenticationException ex){
-                    authenticated = false;
-                }
+
 
                 onRconPacket(rconPacket -> {
                     if(rconPacket.getType() == SERVERDATA_RESPONSE_VALUE
@@ -235,6 +232,18 @@ public class Rcon {
         }
         send(SERVERDATA_AUTH, password);
         //TODO: Run read() twice to check response packets to see if authentication is successful and throw AuthenticationException if not
+        try {
+            //Get empty SERVERDATA_RESPONSE_VALUE packet
+            read(socket.getInputStream());
+            //Get SERVERDATA_AUTH_RESPONSE packet with authentication status
+            RconPacket pak2 = read(socket.getInputStream());
+            //If incorrect password throw exception
+            if(pak2.getRequestId() == -1){
+                throw new AuthenticationException("Incorrect password.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
